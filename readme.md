@@ -1,5 +1,7 @@
 # nginx-reload
 
+[![NPM](https://nodei.co/npm/nginx-reload.png)](https://nodei.co/npm/nginx-reload/)
+
 start, stop and reload nginx by monitoring it's PID file
 
 useful for triggering reload of nginx configuration files
