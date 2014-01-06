@@ -6,6 +6,8 @@ start, stop and reload nginx by monitoring it's PID file
 
 useful for triggering reload of nginx configuration files
 
+based on the monitoring bits of https://github.com/DamonOehlman/ngineer
+
 ### run the tests
 
 there are integration tests available, given the following:
