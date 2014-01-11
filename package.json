@@ -1,6 +1,6 @@
 {
   "name": "nginx-reload",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "node module to start, stop and reload nginx by monitoring its PID file",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "max ogden",
   "license": "BSD",
   "dependencies": {
-    "procinfo": "~0.1.2"
+    "procinfo": "maxogden/procinfo#patch-1"
   },
   "devDependencies": {
     "request": "~2.30.0"
