@@ -60,14 +60,12 @@ Reloader.prototype.readPID = function() {
         self.pid = processData.pids[0]
         var status = self.online
         self.online = !err
-        console.log('b', status, self.online)
         if (status !== self.online) onChange(self.online)
       })
     }
 
     // watch the appropriate location and trigger a reread when something changes
     self.watcher = fs.watch(watchTarget, function(evt, filename) {
-      console.log('watch evt', evt, filename)
       this.close()
       self.readPID()
     })
