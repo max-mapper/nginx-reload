@@ -5,9 +5,12 @@ var exec = require('child_process').exec
 
 module.exports = Reloader
 
-function Reloader(pidLocation, onChange) {
-  if (!(this instanceof Reloader)) return new Reloader(pidLocation, onChange)
-  this.pidLocation = pidLocation || '/run/nginx.pid'
+function Reloader(opts, onChange) {
+  if (!(this instanceof Reloader)) return new Reloader(opts, onChange)
+  if (typeof opts === 'string') opts = {pidLocation: opts}
+  if (!opts) opts = {}
+  this.pidLocation = opts.pidLocation || '/run/nginx.pid'
+  this.sudo = opts.sudo ? 'sudo ' : ''
   this.onChange = onChange || function noop(){}
   this.online = undefined
   this.pid = undefined
@@ -20,19 +23,19 @@ Reloader.prototype.end = function() {
 
 // Sends the reload configuration (HUP) signal to the nginx process.
 Reloader.prototype.reload = function(cb) {
-  exec('kill -s HUP ' + this.pid, function(err, stdout, stderr) {
+  exec(this.sudo + 'kill -s HUP ' + this.pid, function(err, stdout, stderr) {
     if (cb) cb(err, stdout, stderr)
   })
 }
 
 Reloader.prototype.start = function(cb) {
-  exec('nginx', function(err, stdout, stderr) {
+  exec(this.sudo + 'nginx', function(err, stdout, stderr) {
     if (cb) cb(err, stdout, stderr)
   })
 }
 
 Reloader.prototype.stop = function(cb) {
-  exec('nginx -s stop', function(err, stdout, stderr) {
+  exec(this.sudo + 'nginx -s stop', function(err, stdout, stderr) {
     if (cb) cb(err, stdout, stderr)
   })
 }
