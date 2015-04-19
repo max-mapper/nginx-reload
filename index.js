@@ -23,7 +23,7 @@ Reloader.prototype.end = function() {
 
 // Sends the reload configuration (HUP) signal to the nginx process.
 Reloader.prototype.reload = function(cb) {
-  exec(this.sudo + 'kill -s HUP ' + this.pid, function(err, stdout, stderr) {
+  exec(this.sudo + 'ngins -s reload', function(err, stdout, stderr) {
     if (cb) cb(err, stdout, stderr)
   })
 }
