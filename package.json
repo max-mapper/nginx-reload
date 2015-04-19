@@ -1,6 +1,6 @@
 {
   "name": "nginx-reload",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "node module to start, stop and reload nginx by monitoring its PID file",
   "main": "index.js",
   "scripts": {
