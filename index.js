@@ -11,6 +11,7 @@ function Reloader(opts, onChange) {
   if (!opts) opts = {}
   this.pidLocation = opts.pidLocation || '/run/nginx.pid'
   this.sudo = opts.sudo ? 'sudo ' : ''
+  this.nginxBinaryLocation = opts.nginxBinaryLocation || 'nginx'
   this.onChange = onChange || function noop(){}
   this.online = undefined
   this.pid = undefined
@@ -23,19 +24,19 @@ Reloader.prototype.end = function() {
 
 // Sends the reload configuration (HUP) signal to the nginx process.
 Reloader.prototype.reload = function(cb) {
-  exec(this.sudo + 'nginx -s reload', function(err, stdout, stderr) {
+  exec(this.sudo + this.nginxBinaryLocation + ' -s reload', function(err, stdout, stderr) {
     if (cb) cb(err, stdout, stderr)
   })
 }
 
 Reloader.prototype.start = function(cb) {
-  exec(this.sudo + 'nginx', function(err, stdout, stderr) {
+  exec(this.sudo + this.nginxBinaryLocation, function(err, stdout, stderr) {
     if (cb) cb(err, stdout, stderr)
   })
 }
 
 Reloader.prototype.stop = function(cb) {
-  exec(this.sudo + 'nginx -s stop', function(err, stdout, stderr) {
+  exec(this.sudo + this.nginxBinaryLocation + ' -s stop', function(err, stdout, stderr) {
     if (cb) cb(err, stdout, stderr)
   })
 }
